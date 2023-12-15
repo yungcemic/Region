@@ -1,0 +1,175 @@
+settings:
+  database:
+    uri: ""
+    database: "region"
+  wand-item:
+    material: STICK
+    display-name: "&dRegion Stick"
+    lore:
+      - ""
+      - "&fClick to blocks for making selection!"
+      - ""
+
+messages:
+  help:
+    - "&9[Region] &dCommand Usage"
+    - ""
+    - "/region &d- &9Opens the regions menu"
+    - "/region create <name> &d- &9Creates a region at the selected location"
+    - "/region wand &d- &9Gives a stick to select locations to create a region"
+    - "/region add <name> <username> &d- &9Whitelist a user to a region"
+    - "/region remove <name> <username> &d- &9Removes a user from the region whitelist"
+    - "/region whitelist <name> &d- &9Lists the users in the region whitelist"
+    - "/region <name> &d- &9Opens the region menu"
+    - ""
+  no-permission: "&9[Region] &cYou don't have permission to use this command."
+  wand-receive: "&9[Region] &dYou have received the region selection wand."
+  wand-selection: "&9[Region] &dYou have selected corner &9#%s&d."
+  wand-selection-warning: "&9[Region] &dYou need to make a selection."
+  gui-has-no-region: "&9[Region] &dYou don't own any region to view menu"
+  region-not-found: "&9[Region] &dRegion named &9%s&d not found."
+  region-intersection: "&9[Region] &dThere is another region called &9%s &din this area."
+  region-create: "&9[Region] &dYou have created a region named &9%s&d."
+  region-name-warning: "&9[Region] &dYou already have a region called %9%s&d."
+  region-whitelist: "&9[Region] &dPlayers with access to this region: &9[&d%s&9]"
+  region-add: "&9[Region] %s &dhas been added to region."
+  region-add-warning: "&9[Region] &9%s &dis already in the region."
+  region-add-define: "&9[Region] &dEnter a player name to add your region!"
+  region-remove: "&9[Region] %s&d removed from region"
+  region-remove-warning: "&9[Region] %s &dis not in region."
+  region-remove-define: "&9[Region] &dEnter a player name to remove from your region!"
+  region-add-remove-warning: "&9[Region] &dYou cannot add or remove yourself from the region"
+  region-rename-define: "&9[Region] &dEnter a name to rename your region."
+  region-rename: "&9[Region] &dYou renamed your region's name to &9%s&d."
+  region-redefine: "&9[Region] &dYou changed cuboid of your region."
+  region-redefine-same: "&9[Region] &dChange your selection to redefine cuboid."
+  target-not-found: "&9[Region] %s &dis not online."
+
+gui-design:
+  region-list:
+    title: "&0Region List"
+    size: 54
+    region-slot-list:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      - 26
+      - 27
+      - 28
+      - 29
+      - 30
+      - 31
+      - 32
+      - 33
+      - 34
+      - 35
+    button-list:
+      filler-item:
+        material: BLACK_STAINED_GLASS_PANE
+        display-name: ""
+        amount: 1
+        slot-list:
+          - 36
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 42
+          - 43
+          - 44
+      next-page:
+        material: ARROW
+        display-name: "&dNext page"
+        lore:
+          - ""
+          - "&fNext page:&e %next_page%"
+          - ""
+        amount: 1
+        slot: 51
+      previous-page:
+        material: ARROW
+        display-name: "&dPrevious Page"
+        lore:
+          - ""
+          - "&fPrevious page:&e %previous_page%"
+          - ""
+        amount: 1
+        slot: 47
+      region-item:
+        material: GRASS
+        display-name: "&d%s"
+        lore:
+          - ""
+          - "&fClick to view!"
+          - ""
+        amount: 1
+  region:
+    title: "&0Region:&e %s"
+    size: 27
+    button-list:
+      rename:
+        material: DEAD_BUSH
+        display-name: "&dRename"
+        lore:
+          - ""
+          - "&fClick to rename region!"
+          - ""
+          - "&fCurrent name: %name%"
+          - ""
+        amount: 1
+        slot: 10
+      whitelist-add:
+        material: PLAYER_HEAD
+        display-name: "&aAdd Member"
+        lore:
+          - ""
+          - "&fClick to add member!"
+          - ""
+          - "&fCurrent members: &e[%members%]"
+          - ""
+        amount: 1
+        slot: 12
+      whitelist-remove:
+        material: WITHER_SKELETON_SKULL
+        display-name: "&cRemove Member"
+        lore:
+          - ""
+          - "&fClick to add member!"
+          - ""
+          - "&fCurrent members: &e[%members%]"
+          - ""
+        amount: 1
+        slot: 14
+      redefine-cuboid:
+        material: JUKEBOX
+        display-name: "&dRedefine Cuboid"
+        lore:
+          - ""
+          - "&fClick to redefine cuboid!"
+          - ""
+        amount: 1
+        slot: 16
