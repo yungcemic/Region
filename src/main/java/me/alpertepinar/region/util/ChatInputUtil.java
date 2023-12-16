@@ -12,8 +12,7 @@ public final class ChatInputUtil {
 
     private static final Map<UUID, Consumer<String>> inputMap = new HashMap<>();
 
-    private ChatInputUtil() {
-    }
+    private ChatInputUtil() {}
 
     public static boolean getChatInput(Player p, Consumer<String> input) {
         if (inputMap.get(p.getUniqueId()) != null) return false;

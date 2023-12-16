@@ -158,7 +158,7 @@ gui-design:
         display-name: "&cRemove Member"
         lore:
           - ""
-          - "&fClick to add member!"
+          - "&fClick to remove member!"
           - ""
           - "&fCurrent members: &e[%members%]"
           - ""

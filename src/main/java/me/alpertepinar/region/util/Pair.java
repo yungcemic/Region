@@ -5,8 +5,7 @@ public final class Pair<K, V> {
     private K key;
     private V value;
 
-    public Pair() {
-    }
+    public Pair() {}
 
     public Pair(K key, V value) {
         this.key = key;

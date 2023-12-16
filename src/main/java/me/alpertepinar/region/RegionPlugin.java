@@ -27,7 +27,7 @@ public class RegionPlugin extends JavaPlugin {
         RegionLanguage.loadMessages(getConfig().getConfigurationSection("messages"));
         wandItemstack = ItemStackUtil.getItemStackFromConfig(getConfig().getConfigurationSection("settings.wand-item"));
         RegionMongoDatabase database = new RegionMongoDatabase();
-        database.connect(getConfig().getString("settings.database.uri"));
+        database.connect(getConfig().getString("settings.database.database"), getConfig().getString("settings.database.uri"));
         playerManager = new RegionPlayerManager(database);
         regionManager = new RegionManager(database);
         getCommand("region").setExecutor(new RegionCommand(this, playerManager, regionManager));

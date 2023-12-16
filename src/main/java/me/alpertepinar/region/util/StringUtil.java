@@ -6,8 +6,7 @@ import java.util.List;
 
 public final class StringUtil {
 
-    private StringUtil() {
-    }
+    private StringUtil() {}
 
     public static String colorize(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);

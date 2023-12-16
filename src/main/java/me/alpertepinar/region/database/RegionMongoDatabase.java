@@ -24,10 +24,10 @@ public final class RegionMongoDatabase implements RegionDatabase {
     private MongoCollection<Document> regionCollection;
     private MongoCollection<Document> playerCollection;
 
-    public void connect(String uri) {
+    public void connect(String database, String uri) {
         this.client = MongoClients.create(uri);
-        this.playerCollection = client.getDatabase("region").getCollection("players");
-        this.regionCollection = client.getDatabase("region").getCollection("regions");
+        this.playerCollection = client.getDatabase(database).getCollection("players");
+        this.regionCollection = client.getDatabase(database).getCollection("regions");
     }
 
     @Override

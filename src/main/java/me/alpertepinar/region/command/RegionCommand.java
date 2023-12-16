@@ -40,7 +40,8 @@ public final class RegionCommand implements CommandExecutor {
             RegionPlayer regionPlayer = playerManager.getPlayer(p.getUniqueId());
             if (args.length == 0) {
                 if (!p.hasPermission("region.menu")) {
-                    sendNoPermissionMessage(p);                    return true;
+                    sendNoPermissionMessage(p);                    
+                    return true;
                 }
                 if (regionPlayer.getRegions().isEmpty()) {
                     p.sendMessage(RegionLanguage.getMessage("gui-has-no-region"));
@@ -61,7 +62,8 @@ public final class RegionCommand implements CommandExecutor {
                     return true;
                 }
                 if (!p.hasPermission("region.whitelist")) {
-                    sendNoPermissionMessage(p);                    return true;
+                    sendNoPermissionMessage(p);                    
+                    return true;
                 }
                 p.sendMessage("looking for region named");
                 return true;
@@ -70,7 +72,8 @@ public final class RegionCommand implements CommandExecutor {
                 String regionName = args[1];
                 if (args[0].equalsIgnoreCase("create")) {
                     if (!p.hasPermission("region.create")) {
-                        sendNoPermissionMessage(p);                        return true;
+                        sendNoPermissionMessage(p);                        
+                        return true;
                     }
                     if (!regionPlayer.getWandSelection().isPresent()) {
                         p.sendMessage(RegionLanguage.getMessage("wand-selection-warning"));
@@ -102,7 +105,8 @@ public final class RegionCommand implements CommandExecutor {
                 }
                 if (args[0].equalsIgnoreCase("whitelist")) {
                     if (!p.hasPermission("region.whitelist")) {
-                        sendNoPermissionMessage(p);                        return true;
+                        sendNoPermissionMessage(p);                       
+                         return true;
                     }
                     regionManager.getPlayerRegionByName(regionPlayer, regionName).ifPresentOrElse(region -> {
                         String members = String.join(",", region.getMembers().stream().map(uuid -> Bukkit.getOfflinePlayer(uuid).getName()).toList());
@@ -117,7 +121,8 @@ public final class RegionCommand implements CommandExecutor {
                 String regionName = args[1];
                 String userName = args[2];
                 if (!p.hasPermission("region." + args[0].toLowerCase())) {
-                    sendNoPermissionMessage(p);                    return true;
+                    sendNoPermissionMessage(p);                    
+                    return true;
                 }
                 if (userName.equalsIgnoreCase(p.getName())) {
                     p.sendMessage(RegionLanguage.getMessage("region-add-remove-warning"));
