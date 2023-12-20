@@ -84,7 +84,10 @@ public final class RegionManager {
     }
 
     public void loadPlayerAllRegions(RegionPlayer player) {
-        player.getRegions().forEach(uuid -> regionDatabase.findRegionByUniqueId(uuid).ifPresent(this::addRegion));
+        player.getRegions().forEach(uuid -> {
+            regionDatabase.findRegionByUniqueId(uuid).ifPresent(this::addRegion);
+            offlineRegionMap.remove(uuid);
+        });
     }
 
     public List<Region> getPlayerAllRegions(RegionPlayer regionPlayer) {

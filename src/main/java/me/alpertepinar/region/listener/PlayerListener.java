@@ -3,7 +3,6 @@ package me.alpertepinar.region.listener;
 import me.alpertepinar.region.player.RegionPlayer;
 import me.alpertepinar.region.player.RegionPlayerManager;
 import me.alpertepinar.region.region.RegionManager;
-import me.alpertepinar.region.util.ChatInputUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -47,11 +46,5 @@ public final class PlayerListener implements Listener {
         }
         playerManager.removePlayerFromCache(uniqueId);
     }
-
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        ChatInputUtil.processChatInput(e);
-    }
-
 
 }

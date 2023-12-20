@@ -1,6 +1,7 @@
 package me.alpertepinar.region.command;
 
 import me.alpertepinar.region.RegionPlugin;
+import me.alpertepinar.region.gui.RegionGUI;
 import me.alpertepinar.region.gui.RegionListGUI;
 import me.alpertepinar.region.language.RegionLanguage;
 import me.alpertepinar.region.player.RegionPlayer;
@@ -61,11 +62,16 @@ public final class RegionCommand implements CommandExecutor {
                     sendHelpMessage(p);
                     return true;
                 }
-                if (!p.hasPermission("region.whitelist")) {
+                if (!p.hasPermission("region.menu")) {
                     sendNoPermissionMessage(p);                    
                     return true;
                 }
-                p.sendMessage("looking for region named");
+                Optional<Region> region = regionManager.getPlayerRegionByName(regionPlayer, regionName);
+                if (region.isEmpty()) {
+                    p.sendMessage(String.format(RegionLanguage.getMessage("region-not-found"), regionName));
+                    return true;
+                }
+                new RegionGUI(plugin, plugin.getConversationFactory(), regionManager, region.get(), regionPlayer, p).openInventory();
                 return true;
             }
             if (args.length == 2) {

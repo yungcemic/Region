@@ -11,11 +11,13 @@ import me.alpertepinar.region.player.RegionPlayerManager;
 import me.alpertepinar.region.region.RegionManager;
 import me.alpertepinar.region.task.ExpiredRegionCleanupTask;
 import me.alpertepinar.region.util.ItemStackUtil;
+import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RegionPlugin extends JavaPlugin {
 
+    private ConversationFactory conversationFactory;
     private ItemStack wandItemstack;
     private RegionManager regionManager;
     private RegionPlayerManager playerManager;
@@ -28,6 +30,11 @@ public class RegionPlugin extends JavaPlugin {
         wandItemstack = ItemStackUtil.getItemStackFromConfig(getConfig().getConfigurationSection("settings.wand-item"));
         RegionMongoDatabase database = new RegionMongoDatabase();
         database.connect(getConfig().getString("settings.database.database"), getConfig().getString("settings.database.uri"));
+        conversationFactory = new ConversationFactory(this)
+                .withLocalEcho(false)
+                .withModality(true)
+                .withEscapeSequence("cancel")
+                .withTimeout(60);
         playerManager = new RegionPlayerManager(database);
         regionManager = new RegionManager(database);
         getCommand("region").setExecutor(new RegionCommand(this, playerManager, regionManager));
@@ -44,6 +51,10 @@ public class RegionPlugin extends JavaPlugin {
         regionManager.clearCache();
         playerManager.getAllPlayersInCache().forEach(regionPlayer -> playerManager.savePlayer(regionPlayer));
         playerManager.clearCache();
+    }
+
+    public ConversationFactory getConversationFactory() {
+        return conversationFactory;
     }
 
     public ItemStack getWandItemstack() {

@@ -98,7 +98,7 @@ public final class RegionListGUI implements InventoryHolder {
             Region region = regions.get(page * regionSlots.size() + regionSlots.indexOf(slot));
             if (region != null) {
                 player.closeInventory();
-                new RegionGUI(plugin, regionManager, region, regionPlayer, player).openInventory();
+                new RegionGUI(plugin, plugin.getConversationFactory(), regionManager, region, regionPlayer, player).openInventory();
             }
         }
     }
