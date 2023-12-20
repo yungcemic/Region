@@ -70,13 +70,13 @@ public final class RegionGUI implements InventoryHolder {
         button.ifPresent(guiButton -> {
             player.closeInventory();
             if (guiButton.name().equals("rename")) {
-                createConservation(player, region, ConservationPurpose.RENAME);
+                createConservation(ConservationPurpose.RENAME);
             }
             if (guiButton.name().equals("whitelist-add")) {
-                createConservation(player, region, ConservationPurpose.WHITELIST_ADD);
+                createConservation(ConservationPurpose.WHITELIST_ADD);
             }
             if (guiButton.name().equals("whitelist-remove")) {
-                createConservation(player, region, ConservationPurpose.WHITELIST_REMOVE);
+                createConservation(ConservationPurpose.WHITELIST_REMOVE);
             }
             if (guiButton.name().equals("redefine-cuboid")) {
                 if (region.getCuboid().equals(regionPlayer.getSelectionCuboid())) {
@@ -108,7 +108,7 @@ public final class RegionGUI implements InventoryHolder {
         return inventory;
     }
 
-    private void createConservation(Player player, Region region, ConservationPurpose purpose) {
+    private void createConservation(ConservationPurpose purpose) {
         conversationFactory.withFirstPrompt(new StringPrompt() {
             @Override
             public String getPromptText(ConversationContext conversationContext) {
