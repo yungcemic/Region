@@ -83,21 +83,22 @@ public final class RegionGUI implements InventoryHolder {
                     player.sendMessage(RegionLanguage.getMessage("region-redefine-same"));
                     return;
                 }
-                Region intersectionRegion = regionManager.checkIntersection(regionPlayer.getSelectionCuboid());
-                if (intersectionRegion != null) {
-                    player.sendMessage(String.format(RegionLanguage.getMessage("region-intersection"), intersectionRegion.getName()));
-                    for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
-                        player.sendBlockChange(cuboidCorner, Material.GOLD_BLOCK.createBlockData());
-                    }
-                    plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                regionManager.checkIntersection(regionPlayer.getSelectionCuboid(), intersectionRegion -> {
+                    if (intersectionRegion != null) {
+                        player.sendMessage(String.format(RegionLanguage.getMessage("region-intersection"), intersectionRegion.getName()));
                         for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
-                            cuboidCorner.getBlock().getState().update();
+                            player.sendBlockChange(cuboidCorner, Material.GOLD_BLOCK.createBlockData());
                         }
-                    }, 20 * 10L);
-                    return;
-                }
-                region.setCuboid(regionPlayer.getSelectionCuboid());
-                player.sendMessage(RegionLanguage.getMessage("region-redefine"));
+                        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                            for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
+                                cuboidCorner.getBlock().getState().update();
+                            }
+                        }, 20 * 10L);
+                        return;
+                    }
+                    region.setCuboid(regionPlayer.getSelectionCuboid());
+                    player.sendMessage(RegionLanguage.getMessage("region-redefine"));
+                });
             }
             regionManager.saveRegion(region);
         });

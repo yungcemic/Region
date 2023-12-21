@@ -41,7 +41,7 @@ public final class RegionCommand implements CommandExecutor {
             RegionPlayer regionPlayer = playerManager.getPlayer(p.getUniqueId());
             if (args.length == 0) {
                 if (!p.hasPermission("region.menu")) {
-                    sendNoPermissionMessage(p);                    
+                    sendNoPermissionMessage(p);
                     return true;
                 }
                 if (regionPlayer.getRegions().isEmpty()) {
@@ -63,7 +63,7 @@ public final class RegionCommand implements CommandExecutor {
                     return true;
                 }
                 if (!p.hasPermission("region.menu")) {
-                    sendNoPermissionMessage(p);                    
+                    sendNoPermissionMessage(p);
                     return true;
                 }
                 Optional<Region> region = regionManager.getPlayerRegionByName(regionPlayer, regionName);
@@ -78,40 +78,41 @@ public final class RegionCommand implements CommandExecutor {
                 String regionName = args[1];
                 if (args[0].equalsIgnoreCase("create")) {
                     if (!p.hasPermission("region.create")) {
-                        sendNoPermissionMessage(p);                        
+                        sendNoPermissionMessage(p);
                         return true;
                     }
                     if (!regionPlayer.getWandSelection().isPresent()) {
                         p.sendMessage(RegionLanguage.getMessage("wand-selection-warning"));
                         return true;
                     }
-                    Region intersectionRegion = regionManager.checkIntersection(regionPlayer.getSelectionCuboid());
-                    if (intersectionRegion != null) {
-                        p.sendMessage(String.format(RegionLanguage.getMessage("region-intersection"), intersectionRegion.getName()));
-                        for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
-                            p.sendBlockChange(cuboidCorner, Material.GOLD_BLOCK.createBlockData());
-                        }
-                        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                    regionManager.checkIntersection(regionPlayer.getSelectionCuboid(), intersectionRegion -> {
+                        if (intersectionRegion != null) {
+                            p.sendMessage(String.format(RegionLanguage.getMessage("region-intersection"), intersectionRegion.getName()));
                             for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
-                                cuboidCorner.getBlock().getState().update();
+                                p.sendBlockChange(cuboidCorner, Material.GOLD_BLOCK.createBlockData());
                             }
-                        }, 20 * 10L);
-                        return true;
-                    }
-                    if (regionManager.getPlayerRegionByName(regionPlayer, regionName).isEmpty()) {
-                        RegionCuboid cuboid = regionPlayer.getSelectionCuboid();
-                        Region region = new Region(UUID.randomUUID(), p.getUniqueId(), cuboid.getWorld(), cuboid, regionName);
-                        regionPlayer.getRegions().add(region.getUuid());
-                        regionManager.addRegion(region);
-                        p.sendMessage(String.format(RegionLanguage.getMessage("region-create"), regionName));
-                        return true;
-                    }
-                    p.sendMessage(String.format(RegionLanguage.getMessage("region-name-warning"), regionName));
+                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                                for (Location cuboidCorner : intersectionRegion.getCuboid().getCuboidCorners()) {
+                                    cuboidCorner.getBlock().getState().update();
+                                }
+                            }, 20 * 10L);
+                            return;
+                        }
+                        if (regionManager.getPlayerRegionByName(regionPlayer, regionName).isEmpty()) {
+                            RegionCuboid cuboid = regionPlayer.getSelectionCuboid();
+                            Region region = new Region(UUID.randomUUID(), p.getUniqueId(), cuboid.getWorld(), cuboid, regionName);
+                            regionPlayer.getRegions().add(region.getUuid());
+                            regionManager.addRegion(region);
+                            p.sendMessage(String.format(RegionLanguage.getMessage("region-create"), regionName));
+                            return;
+                        }
+                        p.sendMessage(String.format(RegionLanguage.getMessage("region-name-warning"), regionName));
+                    });
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("whitelist")) {
                     if (!p.hasPermission("region.whitelist")) {
-                        sendNoPermissionMessage(p);                       
+                        sendNoPermissionMessage(p);
                          return true;
                     }
                     regionManager.getPlayerRegionByName(regionPlayer, regionName).ifPresentOrElse(region -> {
@@ -127,7 +128,7 @@ public final class RegionCommand implements CommandExecutor {
                 String regionName = args[1];
                 String userName = args[2];
                 if (!p.hasPermission("region." + args[0].toLowerCase())) {
-                    sendNoPermissionMessage(p);                    
+                    sendNoPermissionMessage(p);
                     return true;
                 }
                 if (userName.equalsIgnoreCase(p.getName())) {

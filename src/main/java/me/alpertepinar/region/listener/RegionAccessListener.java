@@ -36,8 +36,9 @@ public final class RegionAccessListener implements Listener {
 
     private void canAccess(Cancellable event, Player player, Location location) {
         if (player.hasPermission("region.bypass")) return;
-        Region region = regionManager.getRegionByLocation(location);
-        if (region == null) return;
-        if (!region.canAccess(player.getUniqueId())) event.setCancelled(true);
+        regionManager.getRegionByLocation(location, region -> {
+            if (region == null) return;
+            if (!region.canAccess(player.getUniqueId())) event.setCancelled(true);
+        });
     }
 }

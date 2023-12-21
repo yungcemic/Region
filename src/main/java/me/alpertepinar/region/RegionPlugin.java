@@ -35,8 +35,8 @@ public class RegionPlugin extends JavaPlugin {
                 .withModality(true)
                 .withEscapeSequence("cancel")
                 .withTimeout(60);
-        playerManager = new RegionPlayerManager(database);
-        regionManager = new RegionManager(database);
+        playerManager = new RegionPlayerManager(this, database);
+        regionManager = new RegionManager(this, database);
         getCommand("region").setExecutor(new RegionCommand(this, playerManager, regionManager));
         getServer().getPluginManager().registerEvents(new RegionAccessListener(regionManager), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(playerManager, regionManager), this);

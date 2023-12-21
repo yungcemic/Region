@@ -1,15 +1,19 @@
 package me.alpertepinar.region.player;
 
+import me.alpertepinar.region.RegionPlugin;
 import me.alpertepinar.region.database.RegionDatabase;
+import org.bukkit.Bukkit;
 
 import java.util.*;
 
 public final class RegionPlayerManager {
 
+    private final RegionPlugin plugin;
     private final RegionDatabase regionDatabase;
     private final Map<UUID, RegionPlayer> playerMap;
 
-    public RegionPlayerManager(RegionDatabase regionDatabase) {
+    public RegionPlayerManager(RegionPlugin plugin, RegionDatabase regionDatabase) {
+        this.plugin = plugin;
         this.regionDatabase = regionDatabase;
         this.playerMap = new HashMap<>();
     }
@@ -29,6 +33,7 @@ public final class RegionPlayerManager {
     }
 
     public void savePlayer(RegionPlayer player) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> regionDatabase.savePlayer(player));
         regionDatabase.savePlayer(player);
     }
 
